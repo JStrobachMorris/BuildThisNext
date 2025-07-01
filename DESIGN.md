@@ -66,14 +66,22 @@ What are the consequences if the app gets a recommendation or evaluation wrong? 
 - Visualise training data
 ### Metric Determination
 - Determine appropriate metrics to judge experiments by - these should be aligned with our business case
-### Experimentation (Modelling and Evaluation)
+### Experimentation 1 - Classification/Regression
 - Further engineer features, performing PCA if required
-- Build models
-- Tune hyperparameters
+- Build baseline model
+- Tune model type or hyperparameters
 - Evaluate and iterate until metrics are sufficiently high
+### Experimentation 2 - Recommendation
+- Build recommender system (details TBD)
+- Evaluate recommender system
+### Feature Extraction from User Input
+- Design synthetic test prompts (storing raw text and desired features)
+- Build an NLP parser
+- Create algorithm with follow-up questions for missing features
+- Process parser and question output to prepare for model input
+- Evaluate model performance with prompting
+- Determine whether to go ahead with raw prompts or feature selectors
 ### Pipeline Building
-- Create synthetic input data that mimics the input style intended for the final app
-- Process the input data to prepare it for model input
 - Moduralise data intake
 - Automate preprocessing
 - Create an input validation schema
