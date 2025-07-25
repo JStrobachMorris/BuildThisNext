@@ -23,4 +23,10 @@ Initial exploration and scoping complete.
 
 Made an initial API call to get a dataset of just 100 games, performed data exploration on a subset of variables to engineer a suitable proxy label for game success (**rating * log(ratings_count + 0.25*added)**), then cleaned and vectorised game descriptions and tags to establish a baseline feature set. For a deep-dive into this initial work, see [Initial_Exploration](Initial_Exploration).
 
-Currently preparing to scale up with a full API call (10,000+ games) and write a full pre-processing pipeline for the training data.
+Scaled up to a full API call (18,000+ games), removed instances with null descriptions and no ratings (resulting in a dataset of 12,000+ games). API call and preprocessing .py files currently on the pre-processing branch.
+
+Currently iteratively model building and evaluating, and considering looking back at data again to further engineer or perhaps change the problem from regression to multi-class classification.
+
+All models currently overfitting beyond ~0.84 RMSE.
+
+
