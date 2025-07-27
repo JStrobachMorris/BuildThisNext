@@ -1,7 +1,7 @@
 # Please specify names of input csv and output csv here - don't include filepath:
-input_csv: str = '____________'
-output_csv: str = '____________'
-
+input_csv: str = '____________.csv'
+output_csv: str = '____________.csv'
+ 
 import pandas as pd
 import numpy as np
 import re
@@ -105,7 +105,7 @@ def clean_tags(tag_series: pd.Series, top_k: int = 100, similarity_cutoff: int =
 
     return cleaned_topk_lists, tags_encoded
 
-df = pd.read_csv('../../data/'+input_csv)
+df = pd.read_csv('../../data/unvectorised/'+input_csv)
 
 df['description_clean'] = df['description_raw'].apply(clean_text)
 
@@ -117,12 +117,12 @@ df['tags_string'] = df['cleaned_tags'].apply(lambda tags: ' '.join(tags))
 
 df['combined_text'] = df['description_clean'] + ' ' + df['tags_string']
 
-df.to_csv('../../data/unvectorised_preprocessed_games.csv', index=False)
+# df.to_csv('../../data/unvectorised/unvectorised_preprocessed_games.csv', index=False)
 
 vectoriser = TfidfVectorizer(
-    min_df=2,
-    max_df=0.5,
-    max_features=300)
+    min_df=1,
+    max_df=0.85,
+    max_features=1000)
 tfidf_matrix = vectoriser.fit_transform(df['combined_text'])
 tfidf_array = tfidf_matrix.toarray() # type: ignore
 
@@ -142,8 +142,8 @@ success_binned = pd.Series(index=success_raw.index, dtype=int)
 success_binned[is_min] = 0
 success_binned[~is_min] = binned_non_min.astype(int)
 
-df_output['success'] = success_binned
+df_output['success_class'] = success_binned
 
 df_output.insert(0, 'id', df['id'].tolist())
 
-df_output.to_csv('../../data/'+output_csv, index=False)
+df_output.to_csv('../../data/vectorisation_attempt_2/'+output_csv, index=False)
