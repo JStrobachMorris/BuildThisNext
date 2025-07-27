@@ -1,3 +1,7 @@
+# Please specify names of input csv and output csv here:
+input_csv: str = '____________'
+output_csv: str = '____________'
+
 import pandas as pd
 import numpy as np
 import re
@@ -100,7 +104,7 @@ def clean_tags(tag_series: pd.Series, top_k: int = 100, similarity_cutoff: int =
 
     return cleaned_topk_lists, tags_encoded
 
-df = pd.read_csv('all_games.csv')
+df = pd.read_csv(input_csv)
 
 df['description_clean'] = df['description_raw'].apply(clean_text)
 
@@ -129,4 +133,4 @@ df_output['success'] = success
 
 df_output.insert(0, 'id', df['id'].tolist())
 
-df_output.to_csv('preprocessed_games.csv', index=False)
+df_output.to_csv(output_csv, index=False)
