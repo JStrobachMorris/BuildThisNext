@@ -1,4 +1,4 @@
-# Please specify names of input csv and output csv here:
+# Please specify names of input csv and output csv here - don't include filepath:
 input_csv: str = '____________'
 output_csv: str = '____________'
 
@@ -13,6 +13,7 @@ import ast
 from rapidfuzz import fuzz, process
 from collections import Counter
 from sklearn.preprocessing import StandardScaler
+import pickle
 
 def strip_non_english(text: str) -> str:
     match = re.search(r'\n(?:Español|Deutsch|Français|Русский|中文|日本語|한국어)\b', text)
@@ -104,7 +105,7 @@ def clean_tags(tag_series: pd.Series, top_k: int = 100, similarity_cutoff: int =
 
     return cleaned_topk_lists, tags_encoded
 
-df = pd.read_csv(input_csv)
+df = pd.read_csv('../../data/'+input_csv)
 
 df['description_clean'] = df['description_raw'].apply(clean_text)
 
@@ -116,12 +117,17 @@ df['tags_string'] = df['cleaned_tags'].apply(lambda tags: ' '.join(tags))
 
 df['combined_text'] = df['description_clean'] + ' ' + df['tags_string']
 
+df.to_csv('../../data/unvectorised_preprocessed_games.csv', index=False)
+
 vectoriser = TfidfVectorizer(
     min_df=2,
     max_df=0.5,
     max_features=300)
 tfidf_matrix = vectoriser.fit_transform(df['combined_text'])
 tfidf_array = tfidf_matrix.toarray() # type: ignore
+
+with open('vectoriser.pkl', 'wb') as f:
+    pickle.dump(vectoriser, f)
 
 df_output = pd.DataFrame(tfidf_array, columns=vectoriser.get_feature_names_out())
 
@@ -140,4 +146,4 @@ df_output['success'] = success_binned
 
 df_output.insert(0, 'id', df['id'].tolist())
 
-df_output.to_csv(output_csv, index=False)
+df_output.to_csv('../../data/'+output_csv, index=False)
