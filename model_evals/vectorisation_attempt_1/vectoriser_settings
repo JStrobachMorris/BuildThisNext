@@ -1,0 +1,5 @@
+Vectoriser settings for vectorisation_attempt_1
+
+min_df: 2
+max_df: 0.5
+max_features: 300
