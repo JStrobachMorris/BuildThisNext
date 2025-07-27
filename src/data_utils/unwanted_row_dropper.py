@@ -14,7 +14,7 @@ def find_chinese(text):
     chinese_pattern = re.compile(r'[\u4E00-\u9FFF]')
     return chinese_pattern.findall(text)
 
-df_grand = pd.read_csv('all_games_raw.csv')
+df_grand = pd.read_csv('../../data/all_games_raw.csv')
 
 df_grand_1 = df_grand.dropna(subset=['description_raw']).reset_index(drop=True)
 
@@ -44,6 +44,6 @@ for i in range(len(df_grand_3)):
 
 df_grand_4 = df_grand_3.drop(zero_ratings).reset_index(drop=True)
 
-df_grand_3.to_csv('all_games_with_rating.csv', index=False)
-df_grand_4.to_csv('all_games_pos_rating.csv', index=False)
+df_grand_3.to_csv('../../data/all_games_with_rating.csv', index=False)
+df_grand_4.to_csv('../../data/all_games_pos_rating.csv', index=False)
 
