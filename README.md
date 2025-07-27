@@ -21,7 +21,7 @@ To see more details on the business problem, desired deliverables and planned pr
 
 Initial exploration and scoping complete.
 
-Made an initial API call to get a dataset of just 100 games, performed data exploration on a subset of variables to engineer a suitable proxy label for game success (**rating * log(ratings_count + 0.25*added)**), then cleaned and vectorised game descriptions and tags to establish a baseline feature set. For a deep-dive into this initial work, see [InitialNotebook](notebooks/InitialNotebook).
+Made an initial API call to get a dataset of just 100 games, performed data exploration on a subset of variables to engineer a suitable proxy label for game success (**rating * log(ratings_count + 0.25*added)**), then cleaned and vectorised game descriptions and tags to establish a baseline feature set. For a deep-dive into this initial work, see [InitialNotebook](notebooks/InitialNotebook.ipynb).
 
 Scaled up to a full API call (18,000+ games), removed instances with null descriptions and no ratings (resulting in a dataset of 17,000+ games). See [data](data) for the resulting csv files, and [src/data_utils](src_data_utils) for the py files used to process this data.
 
